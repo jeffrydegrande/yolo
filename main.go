@@ -24,7 +24,7 @@ func Check(err error) {
 
 func printUsage(cli *Cli) func() {
 	return func() {
-		fmt.Fprint(os.Stdout, "Usage: engagor [OPTIONS] COMMAND\n\nA fancy script runner")
+		fmt.Fprint(os.Stdout, "Usage: yolo [OPTIONS] COMMAND\n\nA fancy script runner")
 		flag.CommandLine.SetOutput(os.Stdout)
 		flag.PrintDefaults()
 
@@ -34,7 +34,7 @@ func printUsage(cli *Cli) func() {
 			help += fmt.Sprintf("	%-10.10s%s\n", group.name, group.description)
 		}
 
-		help += "\nRun 'engagor COMMAND --help' for more information on a command."
+		help += "\nRun 'yolo COMMAND --help' for more information on a command."
 		fmt.Fprintf(os.Stdout, "%s\n", help)
 	}
 }
