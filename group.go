@@ -1,17 +1,19 @@
 package main
 
 import (
-	"bufio"
 	"errors"
+	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
+	"strings"
 )
 
 type Group struct {
 	name        string
 	path        string
 	description string
+	help        string
 	scripts     []string
 }
 
@@ -24,20 +26,17 @@ func NewGroup(path string) *Group {
 	return group
 }
 
-func (group *Group) initDescription() error {
-	readme := path.Join(group.path, "README.md")
-	file, err := os.Open(readme)
+func (group *Group) initDescription() {
+	path := path.Join(group.path, "README.md")
+	file, err := ioutil.ReadFile(path)
 	if err != nil {
-		return err
+		return
 	}
-	defer file.Close()
 
-	r := bufio.NewReader(file)
-	line, err := r.ReadString('\n')
-	Check(err)
-
-	group.description = line[2 : len(line)-1]
-	return nil
+	readme := string(file)
+	pos := strings.Index(readme, "\n")
+	group.description = readme[1 : pos-1]
+	group.help = readme
 }
 
 func (group *Group) initScripts() error {

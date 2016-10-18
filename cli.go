@@ -52,7 +52,7 @@ func (cli *Cli) showHelpForGroup(groupName string) {
 	if err != nil {
 		return
 	}
-	help := group.name
+	help := fmt.Sprintf("%s - %s\n%s\n\nAvailable commands:\n", group.name, group.description, group.help)
 
 	for _, script := range group.scripts {
 		help += fmt.Sprintf("	%-20.20s%s\n", pathToName(script), script)
